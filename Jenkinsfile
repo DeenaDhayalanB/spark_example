@@ -1,18 +1,14 @@
 env.dockerimagename="devopsbasservice/buildonframework:buildon-jenkinsfile"
 node {
-   stage ('Code Checkout') {
+   stage ('Checkout') {
     checkout scm
-    
+    sh 'mvn clean package -DskipTests=True'
   }
-   stage ('Code build') {
-    sh """pwd
-          cd ${WORKSPACE}
-          mvn clean package -DskipTests=True
-          """
-    sh 'sleep 10s'
+   stage ('Build') {
+    sh 'mvn clean package -DskipTests=True'
    }
 
-   stage ('Code Deplou') {
-    echo "Code Deployed skipped for now"
+   stage ('SP_Clinic_NexusUpload') {
+    sh 'mvn --version'
    }
 }
